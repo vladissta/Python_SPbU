@@ -20,7 +20,7 @@ def prime_num(num):
     '''
     2. Проверяет, является ли оно простым.
     '''
-    for i in range(2, num):
+    for i in range(2, num // 2):
         if num % i == 0:
             return False
     else:
