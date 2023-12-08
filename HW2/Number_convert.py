@@ -30,7 +30,7 @@ def convert_from_decimal(num: int, base_out: int) -> str:
 
     while num >= base_out:
         out_num_list.append(digits[num % base_out])
-        num = num // base_out
+        num //= base_out
     return digits[num] + ''.join(out_num_list[::-1])
 
 
