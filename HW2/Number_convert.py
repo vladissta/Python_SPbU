@@ -28,10 +28,10 @@ def convert_from_decimal(num: int, base_out: int) -> str:
     """
     out_num_list = []
 
-    while num >= base_out:
+    while num:
         out_num_list.append(digits[num % base_out])
         num //= base_out
-    return digits[num] + ''.join(out_num_list[::-1])
+    return ''.join(out_num_list[::-1])
 
 
 def summation(base_in: int, num1: str, num2: str, base_out: int) -> str:
@@ -60,6 +60,9 @@ if __name__ == '__main__':
 
     assert summation(16, 'a', 'a', 2) == '10100', "16, 'a', 'a', 2 -> 10100 [ERROR]"
     print("16, 'a', 'a', 2 -> 10100 [PASSED]")
+
+    assert summation(10, '100', '100', 16) == 'C8', "10, '100', '100', 16 -> C8 [ERROR]"
+    print("10, '100', '100', 16 -> C8 [PASSED]")
 
     assert summation(2, '101', '110', 16) == 'B', "2, '101', '110', 16 -> 10100 [ERROR]"
     print("2, '101', '110', 16 -> 10100 [PASSED]")
