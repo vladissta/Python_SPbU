@@ -156,67 +156,104 @@ class Weapon(GameObject):
 
 
 class EdgedWeapon(Weapon):
+    """
+    Edged weapon! (like a blade)
+    """
 
     def __init__(self, name: str, loc: Location, x, y, z, damage, radius, crit_damage: float):
         super().__init__(name, loc, x, y, z, damage, radius)
-        self.crit_damage = crit_damage
+        self.crit_damage = crit_damage  # Let Edged Weapon have a critical damage!
 
     def attack(self, obj: LivingObject):
+        """
+        :param obj: LivingObject to attack (target)
+        :return: None
+        """
         d = self.distance(obj)
         if d > self.radius:
             return
+        # Slightly changed attack to account for critical damage
         obj.changeHP(- self.damage - (random.random() > 0.8) * self.crit_damage)
         print(f'{obj.name} was attacked by {self.name}')
         print(f'{obj.name}: {obj.hp} HP')
 
 
 class ThrowingWeapon(Weapon):
+    """
+    Trowing weapon! (like a trowing knife or axe)
+    """
 
-    def throw(self, target_x, target_y, target_z):
-
+    def throw(self, target_x: int, target_y: int, target_z: int):
+        """
+        Special function to throw a throwing weapon into particular direction!
+        :return: None if it was too far to throw and True if successfully thrown
+        """
         point_target = GameObject('point', self._loc,
                                   x=target_x, y=target_y, z=target_z)
 
-        d = self.distance(point_target)
+        d = self.distance(point_target)  # check the distance
         if d > self.radius:
             print('Too far to throw')
             return
-        else:
+        else:  # change the coordinates of weapon, so some other player could pick up and use it
             print(f'{self.name} thrown to {target_x} {target_y} {target_z}')
             self.x = target_x
             self.y = target_y
             self.z = target_z
+            return True
 
 
 class Player(LivingObject):
+    """
+    Player! - obviously, it is a living object
+    """
 
-    def __init__(self, name: str, loc: Location, x, y, z, hp: int, equipping_radius: int):
+    def __init__(self, name: str, loc: Location, x, y, z, hp: int, pick_up_radius: int):
         super().__init__(name, loc, x, y, z, hp)
-        self.equipping_radius = equipping_radius
-        self.weapon = None
+        self.pick_up_radius = pick_up_radius  # weapon pick-up distance
+        self.weapon = None  # picked up weapon
 
-    def equip_weapon(self, weapon: Weapon):
+    def pick_up_weapon(self, weapon: Weapon):
         """
-        Equip weapon that can be used calling its methods - e.g. weapon.throw() or weapon.attack(obj)
-
+        to pick up a weapon
         :param weapon: Weapon object
         :return: None
         """
-        if self.equipping_radius >= self.distance(weapon):
+        if self.pick_up_radius >= self.distance(weapon):  # check how far the weapon is
             weapon.x, weapon.y, weapon.z = self.x, self.y, self.z
-            self.weapon = weapon
-            print(f'{self.weapon.name} was equipped by {self.name}')
+            self.weapon = weapon  # now the player have a weapon!
+            print(f'{self.weapon.name} was picked up by {self.name}')
         else:
             print("To far to handle!")
             return
 
     def attack(self, obj: LivingObject):
+        """
+        Player can use weapon (if he/she have one) to attack
+        :param obj: LivingObject to attack (target)
+        :return: None
+        """
         if not self.weapon:
             print(f'{self.name} tried to attack, but has no weapon!')
             return
         self.weapon.attack(obj)
-        if isinstance(self.weapon, ThrowingWeapon):
+        if isinstance(self.weapon, ThrowingWeapon):  # if throwing weapon is thrown than player has no weapon anymore
             self.weapon = None
+
+    def throw(self, target_x, target_y, target_z):
+        """
+        Special function to throw a throwing weapon (if player have one) into particular direction
+        :return: None
+        """
+        if not self.weapon:
+            print(f'{self.name} tried to attack, but has no weapon!')
+            return
+        if not isinstance(self.weapon, ThrowingWeapon):
+            print(f'{self.name} tried to throw a {self.weapon.name}, haha!')
+            return
+
+        if self.weapon.throw(target_x, target_y, target_z):
+            self.weapon = None  # weapon is thrown away!
 
 
 class Eatable(ABC):
@@ -287,6 +324,8 @@ class Cookable(GameObject, Eatable, Burnable):
 
 
 if __name__ == '__main__':
+    print('Small test game:\n')
+
     forest = Location('forest', 100, 100, 20)
 
     knife = EdgedWeapon('knife', forest, 1, 2, 1, 20, 5, crit_damage=50)
@@ -296,11 +335,12 @@ if __name__ == '__main__':
     enemy = Player('Baba Yaga', forest, 3, 2, 1, 100, 5)
 
     print(f"{human.name}: {human.hp} HP, {enemy.name}: {enemy.hp} HP")
-    human.equip_weapon(knife)
+    human.pick_up_weapon(knife)
     human.attack(enemy)
 
-    enemy.equip_weapon(grenade)
-    enemy.weapon.throw(2, 2, 2)
-    human.equip_weapon(grenade)
+    enemy.pick_up_weapon(grenade)
+    enemy.throw(2, 2, 2)
+    human.pick_up_weapon(grenade)
     human.attack(enemy)
     human.attack(enemy)
+    enemy.attack(human)

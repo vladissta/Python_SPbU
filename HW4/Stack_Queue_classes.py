@@ -1,4 +1,7 @@
 class Stack:
+    """
+    Stack class stores elements of stack and useful methods and attributes to interact with it
+    """
 
     def __init__(self):
         self.stack_list = []
@@ -7,17 +10,32 @@ class Stack:
         return len(self.stack_list)
 
     def pop(self):
-        self.stack_list.pop()
+        """
+        Returns top element of the stack and deletes it from stack
+        :return: top element
+        """
+        return self.stack_list.pop()
 
-    def push(self, num):
+    def push(self, num: int):
+        """
+        Pushes new element to the top of the stack
+        :param num: number to add to the top of the stack
+        :return: None
+        """
         self.stack_list.append(num)
 
     @property
     def top_element(self):
+        """
+        :return: top element
+        """
         return self.stack_list[~0]
 
 
 class Queue:
+    """
+    Class Queue stores elements of queue and useful methods and attributes to interact with it
+    """
 
     def __init__(self):
         self.queue_list = []
@@ -26,21 +44,38 @@ class Queue:
         return len(self.queue_list)
 
     def dequeue(self):
-        self.queue_list.pop()
+        """
+        Returns first (next) element in the queue and deletes it from the queue
+        :return: first (next) element in the queue
+        """
+        return self.queue_list.pop()
 
-    def enqueue(self, num):
+    def enqueue(self, num: int):
+        """
+        Adds new element to the end of the queue
+        :param num: number to add to queue
+        :return: None
+        """
         self.queue_list.insert(0, num)
 
     @property
     def last_element(self):
+        """
+        :return: last element in the queue
+        """
         return self.queue_list[0]
 
     @property
     def first_element(self):
+        """
+        :return: first element in the queue
+        """
         return self.queue_list[~0]
 
 
 if __name__ == '__main__':
+    print('Small tests:')
+
     stack = Stack()
     stack.push(2)
     stack.push(3)

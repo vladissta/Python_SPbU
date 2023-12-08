@@ -1,7 +1,6 @@
 def fibbonacci(n):
     """
-    Recursive calculation of n-th number in Fibonacci sequence starting with 0
-
+    Recursive calculation of n-th number in Fibonacci sequence starting with 0 element (!)
     :param n: number
     :return: n-th number in Fibonacci sequence
     """
