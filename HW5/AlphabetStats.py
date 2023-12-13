@@ -8,7 +8,7 @@ def alphabet_stat_fun_maker(alphabet: str):
 
     def alphabet_stat(seq: str):
         """
-        Prints percentage of alphabet symbols usage in given sequence + pretty retalive text barplot
+        Prints percentage of alphabet symbols usage in given sequence + prints pretty text barplot
         :param seq: Sequence to count statistics of symbols usage
         :return: None
         """
