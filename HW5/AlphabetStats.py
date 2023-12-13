@@ -29,6 +29,7 @@ if __name__ == '__main__':
     alpha_counter_DNA = alphabet_stat_fun_maker('AGCT')
     alpha_counter_DNA('AGCGTCGTGTGG')
     print()
+
     alpha_counter_RNA = alphabet_stat_fun_maker('AGCU')
     alpha_counter_RNA('AUAUGGCGAACGU')
     print()
