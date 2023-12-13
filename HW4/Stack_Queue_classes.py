@@ -14,7 +14,10 @@ class Stack:
         Returns top element of the stack and deletes it from stack
         :return: top element
         """
-        return self.stack_list.pop()
+        if len(self):
+            return self.stack_list.pop()
+        else:
+            raise IndexError('Empty Stack!')
 
     def push(self, num: int):
         """
@@ -48,7 +51,10 @@ class Queue:
         Returns first (next) element in the queue and deletes it from the queue
         :return: first (next) element in the queue
         """
-        return self.queue_list.pop()
+        if len(self):
+            return self.queue_list.pop()
+        else:
+            raise IndexError('Empty Queue!')
 
     def enqueue(self, num: int):
         """

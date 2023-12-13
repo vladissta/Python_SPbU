@@ -23,4 +23,4 @@ if __name__ == '__main__':
     assert convert_to_lower('AbCdE') == 'abcde'
     print('2nd test passed')
     assert mirror_convert('AbCdE') == 'aBcDe'
-    print('3rd test passed\n')
+    print('3rd test passed')
