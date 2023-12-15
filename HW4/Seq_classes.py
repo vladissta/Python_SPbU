@@ -53,7 +53,7 @@ class Sequence(ABC):
     def get_molecular_weight(self):
         """
         Prints the average molecular weight of sequence
-        :return: None
+        :return: number
         """
         pass
 
@@ -61,19 +61,20 @@ class Sequence(ABC):
 class Protein(Sequence):
     _alphabet_str = 'VYRNDCEQGHILKMFPSTWA_'
 
-    __aa_mass = {'A': 71, 'G': 57, 'M': 131, 'S': 87,
-                 'C': 103, 'H': 137, 'N': 114, 'T': 101,
-                 'D': 115, 'I': 113, 'P': 97, 'V': 99,
-                 'E': 129, 'K': 128, 'Q': 128, 'W': 186,
-                 'F': 147, 'L': 113, 'R': 156, 'Y': 163
-                 }
+    # dictionary of amino acids' masses in daltons
+    _aa_mass = {'A': 71, 'G': 57, 'M': 131, 'S': 87,
+                'C': 103, 'H': 137, 'N': 114, 'T': 101,
+                'D': 115, 'I': 113, 'P': 97, 'V': 99,
+                'E': 129, 'K': 128, 'Q': 128, 'W': 186,
+                'F': 147, 'L': 113, 'R': 156, 'Y': 163
+                }
 
     def get_molecular_weight(self):
         """
         Prints the average molecular weight of amono acid sequence in daltons
-        :return: None
+        :return: weight in daltons
         """
-        return sum(self.__aa_mass[x] for x in self.sequence) - (len(self) - 1) * 19
+        return sum(self._aa_mass[x] for x in self.sequence) - (len(self) - 1) * 19
 
 
 class RNA(Sequence):
@@ -123,7 +124,7 @@ class RNA(Sequence):
     def get_molecular_weight(self):
         """
         Prints the average molecular weight of nucleotide sequence in g/mol
-        :return: None
+        :return: weight in g/mol
         """
         nucleotide_molecular_weight = 330
         return nucleotide_molecular_weight * len(self)
@@ -152,7 +153,7 @@ class DNA(Sequence):
     def get_molecular_weight(self):
         """
         Prints the average molecular weight of nucleotide sequence in g/mol
-        :return: None
+        :return: weight in g/mol
         """
         nucleotide_molecular_weight = 330
         return nucleotide_molecular_weight * len(self)
