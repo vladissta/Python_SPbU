@@ -166,6 +166,9 @@ if __name__ == '__main__':
     rna = dna.transcript()
     protein = rna.translate()
 
+    print(dna.sequence)
+    print(dna.compliment_seq())
+
     print(rna.fraction)
     print(protein.fraction)
 
@@ -175,10 +178,10 @@ if __name__ == '__main__':
     try:
         dna2 = DNA('dna2', 'AUUGGCGC')
     except ValueError:
-        print('Expected error 1 was raised')
+        print('Expected error of sequence input was raised')
 
     try:
         rna2 = RNA('rna2', 'auaugucgcg')
         print(rna2.translate())
     except ValueError:
-        print('Expected error 2 was raised')
+        print('Expected error of translation was raised')
