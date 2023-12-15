@@ -12,7 +12,7 @@ def alphabet_stat_fun_maker(alphabet: str):
         :param seq: Sequence to count statistics of symbols usage
         :return: None
         """
-        if set(seq) != alphabet_set:
+        if not set(seq).issubset(alphabet_set):
             raise ValueError("Wrong alphabet of inputted sequence!")
 
         length_of_seq = len(seq)
@@ -39,3 +39,11 @@ if __name__ == '__main__':
         alpha_counter_RNA('AGCGTCGTGTGG')
     except ValueError:
         print('Expected error was raised')
+
+    print()
+
+    try:
+        alpha_counter_RNA = alphabet_stat_fun_maker('AGCU')
+        alpha_counter_RNA('AUAUAUAU')
+    except ValueError:
+        print('Unexpected error was raised !!!')

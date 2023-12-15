@@ -143,7 +143,7 @@ class DNA(Sequence):
     def transcript(self, name_of_rna: str = 'New RNA') -> RNA:
         """
         Transcripts  DNA into RNA
-        [!] The DNA sequence is supposed to be on the coding strand
+        [!] The DNA sequence is supposed to be the coding strand
         :param name_of_rna: Name of the new RNA sequence
         :return: RNA object
         """
