@@ -2,7 +2,7 @@ class Element:
     """
     Element of linked list.
     Stores information about value and next (linked) element -
-     None if it is the last element in the list
+    None if it is the last element in the list
     """
 
     def __init__(self, value: int):

@@ -105,7 +105,7 @@ class RNA(Sequence):
         :return: compliment sequence (not reversed!)
         """
         trans_dict = str.maketrans(self._alphabet_str, self._alphabet_str[::-1])
-        return self._sequence.translate(trans_dict)
+        return self.__class__(self._sequence.translate(trans_dict))
 
     def translate(self, name_of_protein='New protein'):
         """
@@ -138,7 +138,7 @@ class DNA(Sequence):
         :return: compliment sequence (not reversed!)
         """
         trans_dict = str.maketrans(self._alphabet_str, self._alphabet_str[::-1])
-        return self._sequence.translate(trans_dict)
+        return self.__class__(f'translated_{self.name}', self._sequence.translate(trans_dict))
 
     def transcript(self, name_of_rna: str = 'New RNA') -> RNA:
         """
